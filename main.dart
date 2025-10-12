@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 // Import file login_page.dart agar bisa pindah ke halaman tersebut
-import 'package:kelompok_a/login_page.dart'; // Ganti "kelompok_a" jika nama proyek beda
+import 'package:visualink_app/login_page.dart'; // Ganti "kelompok_a" jika nama proyek beda
 
 // Fungsi utama yang akan dijalankan pertama kali saat aplikasi dibuka
 void main() {
@@ -54,12 +54,16 @@ class WelcomeScreen extends StatelessWidget {
                   const Text(
                     'Selamat Datang\ndi Visualink',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Color(0xFF00B2FF)),
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF00B2FF),
+                    ),
                   ),
                   const Spacer(flex: 2),
                   // Teks slogan di tengah
                   const Text(
-                    'Belajar Publikasi\nKapan Aja!\nDimana Aja!',
+                    'Aplikasi ini\nsebagai tempat untuk!\nguru saling belajar!',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 16, color: Colors.black54),
                   ),
@@ -72,25 +76,42 @@ class WelcomeScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         // MaterialPageRoute mendefinisikan transisi halaman standar
-                        MaterialPageRoute(builder: (context) => const LoginPage()),
+                        MaterialPageRoute(
+                          builder: (context) => const LoginPage(),
+                        ),
                       );
                     },
                     // Mengatur gaya visual tombol
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
                       foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                      padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 80,
+                        vertical: 20,
+                      ),
                       elevation: 5,
                     ),
-                    child: const Text('Klik untuk Masuk', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    child: const Text(
+                      'Klik untuk Masuk',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   const Spacer(flex: 3),
                   // Teks slogan di bawah (di dalam area pink)
                   const Text(
                     'Belajar Publikasi\nWujudkan Imajinasi',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                   const Spacer(flex: 2),
                 ],
@@ -136,7 +157,10 @@ class BackgroundShapes extends StatelessWidget {
           child: Container(
             width: size.width * 0.5,
             height: size.width * 0.5,
-            decoration: const BoxDecoration(color: darkPinkColor, shape: BoxShape.circle),
+            decoration: const BoxDecoration(
+              color: darkPinkColor,
+              shape: BoxShape.circle,
+            ),
           ),
         ),
         Positioned(
@@ -145,7 +169,10 @@ class BackgroundShapes extends StatelessWidget {
           child: Container(
             width: size.width * 0.4,
             height: size.width * 0.4,
-            decoration: const BoxDecoration(color: darkPinkColor, shape: BoxShape.circle),
+            decoration: const BoxDecoration(
+              color: darkPinkColor,
+              shape: BoxShape.circle,
+            ),
           ),
         ),
       ],
@@ -164,10 +191,20 @@ class WaveClipper extends CustomClipper<Path> {
     path.lineTo(size.width, size.height * 0.2);
     var firstControlPoint = Offset(size.width * 0.75, 0);
     var firstEndPoint = Offset(size.width * 0.5, size.height * 0.2);
-    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy, firstEndPoint.dx, firstEndPoint.dy);
+    path.quadraticBezierTo(
+      firstControlPoint.dx,
+      firstControlPoint.dy,
+      firstEndPoint.dx,
+      firstEndPoint.dy,
+    );
     var secondControlPoint = Offset(size.width * 0.25, size.height * 0.4);
     var secondEndPoint = Offset(0, size.height * 0.2);
-    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy, secondEndPoint.dx, secondEndPoint.dy);
+    path.quadraticBezierTo(
+      secondControlPoint.dx,
+      secondControlPoint.dy,
+      secondEndPoint.dx,
+      secondEndPoint.dy,
+    );
     path.close(); // Menutup path
     return path;
   }

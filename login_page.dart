@@ -3,8 +3,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:kelompok_a/home_page.dart'; // Ganti "kelompok_a" jika nama proyek beda
-import 'package:kelompok_a/admin_page.dart'; // Ganti "kelompok_a" jika nama proyek beda
+import 'package:visualink_app/home_page.dart'; // Ganti "kelompok_a" jika nama proyek beda
+import 'package:visualink_app/admin_page.dart'; // Ganti "kelompok_a" jika nama proyek beda
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
 
     // Tentukan alamat URL API login di server backend Anda
     // PENTING: GANTI 'GANTI_DENGAN_IP_ANDA' dengan alamat IP komputer Anda
-    final url = Uri.parse('http://GANTI_DENGAN_IP_ANDA:3000/login');
+    final url = Uri.parse('http://192.168.1.19:3000/login');
 
     // Gunakan try-catch untuk menangani error jika koneksi ke server gagal total
     // (misalnya: server mati, tidak ada internet, atau IP salah)
@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
           // Jika sukses, ubah balasan JSON dari server (yang masih berupa teks)
           // menjadi format Map (key-value) yang bisa dibaca oleh Dart.
           final data = jsonDecode(response.body);
-          
+
           // Ambil nilai 'role' dan 'username' dari data balasan server
           final String role = data['role'];
           final String loggedInUsername = data['username'];
@@ -68,21 +68,28 @@ class _LoginPageState extends State<LoginPage> {
             // sambil mengirim data username
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => AdminPage(username: loggedInUsername)),
+              MaterialPageRoute(
+                builder: (context) => AdminPage(username: loggedInUsername),
+              ),
             );
           } else {
             // Jika rolenya bukan 'admin' (misal: 'siswa'), pindah ke halaman HomePage
             // sambil mengirim data username
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => HomePage(username: loggedInUsername)),
+              MaterialPageRoute(
+                builder: (context) => HomePage(username: loggedInUsername),
+              ),
             );
           }
         } else {
           // Jika statusnya bukan 200 (misal: 400), berarti login gagal
           // Tampilkan pesan error di bagian bawah layar (SnackBar)
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Login Gagal! Username atau password salah.'), backgroundColor: Colors.red),
+            const SnackBar(
+              content: Text('Login Gagal! Username atau password salah.'),
+              backgroundColor: Colors.red,
+            ),
           );
         }
       }
@@ -91,7 +98,12 @@ class _LoginPageState extends State<LoginPage> {
       if (mounted) {
         // Tampilkan pesan error koneksi di SnackBar
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Tidak bisa terhubung ke server. Periksa koneksi Anda.'), backgroundColor: Colors.red),
+          const SnackBar(
+            content: Text(
+              'Tidak bisa terhubung ke server. Periksa koneksi Anda.',
+            ),
+            backgroundColor: Colors.red,
+          ),
         );
       }
     }
@@ -108,12 +120,28 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           // Widget untuk lingkaran-lingkaran dekoratif di latar belakang
           Positioned(
-            bottom: -100, left: -100,
-            child: Container(width: 300, height: 300, decoration: const BoxDecoration(color: darkPinkColor, shape: BoxShape.circle)),
+            bottom: -100,
+            left: -100,
+            child: Container(
+              width: 300,
+              height: 300,
+              decoration: const BoxDecoration(
+                color: darkPinkColor,
+                shape: BoxShape.circle,
+              ),
+            ),
           ),
           Positioned(
-            top: 150, right: -150,
-            child: Container(width: 250, height: 250, decoration: const BoxDecoration(color: darkPinkColor, shape: BoxShape.circle)),
+            top: 150,
+            right: -150,
+            child: Container(
+              width: 250,
+              height: 250,
+              decoration: const BoxDecoration(
+                color: darkPinkColor,
+                shape: BoxShape.circle,
+              ),
+            ),
           ),
           // Widget SafeArea agar konten tidak tertutup status bar di atas
           SafeArea(
@@ -125,9 +153,14 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Teks Judul
-                    const Text('Sebelum Belajar,\nLogin dulu yuk!',
+                    const Text(
+                      'Sebelum Belajar,\nLogin dulu yuk!',
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 50),
                     // Container putih sebagai kartu untuk form
@@ -136,7 +169,13 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
-                        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 20, offset: const Offset(0, 10))],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 20,
+                            offset: const Offset(0, 10),
+                          ),
+                        ],
                       ),
                       child: Column(
                         children: [
@@ -148,9 +187,17 @@ class _LoginPageState extends State<LoginPage> {
                               filled: true,
                               fillColor: Colors.black,
                               hintText: 'Masukkan Username',
-                              hintStyle: TextStyle(color: Colors.white.withOpacity(0.7)),
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(30), borderSide: BorderSide.none),
-                              prefixIcon: const Icon(Icons.person_outline, color: Colors.white),
+                              hintStyle: TextStyle(
+                                color: Colors.white.withOpacity(0.7),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide.none,
+                              ),
+                              prefixIcon: const Icon(
+                                Icons.person_outline,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                           const SizedBox(height: 20),
@@ -163,22 +210,42 @@ class _LoginPageState extends State<LoginPage> {
                               filled: true,
                               fillColor: Colors.black,
                               hintText: 'Masukkan Password',
-                              hintStyle: TextStyle(color: Colors.white.withOpacity(0.7)),
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(30), borderSide: BorderSide.none),
-                              prefixIcon: const Icon(Icons.lock_outline, color: Colors.white),
+                              hintStyle: TextStyle(
+                                color: Colors.white.withOpacity(0.7),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide.none,
+                              ),
+                              prefixIcon: const Icon(
+                                Icons.lock_outline,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                           const SizedBox(height: 30),
                           // Tombol Login
                           ElevatedButton(
-                            onPressed: _handleLogin, // Memanggil fungsi login saat ditekan
+                            onPressed:
+                                _handleLogin, // Memanggil fungsi login saat ditekan
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF00B2FF),
                               foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                              padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 80,
+                                vertical: 15,
+                              ),
                             ),
-                            child: const Text('Masuk', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                            child: const Text(
+                              'Masuk',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ],
                       ),

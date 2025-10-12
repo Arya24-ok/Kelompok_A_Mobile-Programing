@@ -1,52 +1,64 @@
-// lib/home_page.dart
-
 import 'package:flutter/material.dart';
+import 'package:visualink_app/materi_page.dart'; // Pastikan path ini benar
+import 'package:url_launcher/url_launcher.dart';   // Import untuk membuka link
 
 class HomePage extends StatelessWidget {
-  // Variabel untuk menampung data username yang dikirim dari halaman login
   final String username;
   
-  // Constructor yang mewajibkan pengiriman data username saat halaman ini dibuat
   const HomePage({super.key, required this.username});
+
+  // Fungsi untuk membuka link WhatsApp
+  Future<void> _launchWhatsAppUrl() async {
+    final Uri url = Uri.parse('https://chat.whatsapp.com/LDXgOhth0LjD2P14OvqxGe');
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F7),
-      // SafeArea agar konten tidak menabrak status bar atau notch
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
-          // Column untuk menyusun widget secara vertikal
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Memanggil fungsi helper untuk membuat header
               _buildHeader(username),
               const SizedBox(height: 40),
               
-              // Teks Judul "Menu"
               const Text('Menu', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black87)),
               const SizedBox(height: 20),
               
-              // Baris untuk menampung tombol Materi dan Kuis
               Row(
                 children: [
-                  // Expanded agar tombol mengisi ruang yang tersedia secara merata
-                  Expanded(child: _buildMenuButton(title: 'Materi', onTap: () {})),
+                  Expanded(
+                    child: _buildMenuButton(
+                      title: 'Materi',
+                      // Aksi 1: Pindah ke halaman Materi
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const MateriPage()),
+                        );
+                      },
+                    ),
+                  ),
                   const SizedBox(width: 16),
                   Expanded(child: _buildMenuButton(title: 'Kuis', onTap: () {})),
                 ],
               ),
               const SizedBox(height: 16),
               
-              // Tombol untuk Forum Diskusi
-              _buildMenuButton(title: 'Forum Diskusi', onTap: () {}),
+              _buildMenuButton(
+                title: 'Forum Diskusi',
+                // Aksi 2: Membuka link WhatsApp
+                onTap: _launchWhatsAppUrl,
+              ),
               
-              // Spacer untuk mendorong konten di bawahnya ke posisi paling bawah
               const Spacer(),
               
-              // Teks footer di bagian bawah tengah
               const Center(
                 child: Column(
                   children: [
@@ -63,8 +75,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // Fungsi helper (pembantu) untuk membuat widget header
-  // Menerima parameter 'name' untuk ditampilkan
   Widget _buildHeader(String name) {
     return Row(
       children: [
@@ -74,19 +84,16 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text('Halo,', style: TextStyle(fontSize: 16, color: Colors.black54)),
-            // Menampilkan nama pengguna yang login
             Text(name, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87)),
           ],
         ),
-        const Spacer(), // Mendorong ikon lonceng ke kanan
+        const Spacer(),
         const Icon(Icons.notifications, color: Color(0xFF00B2FF), size: 30),
       ],
     );
   }
 
-  // Fungsi helper untuk membuat tombol menu agar tidak menulis kode yang sama berulang kali
   Widget _buildMenuButton({required String title, required VoidCallback onTap}) {
-    // InkWell membuat widget di dalamnya bisa di-klik dan memiliki efek "ripple"
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(20),
