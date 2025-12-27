@@ -1,0 +1,2 @@
+kopi semua file bertipe dart kedalam folder lib pada tempalte flutter
+kopi file tipe yaml langsung di dalam folder tempalte flutternya
